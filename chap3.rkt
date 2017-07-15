@@ -1,5 +1,4 @@
 #lang racket
-
 (define atom?
    (lambda (a)
       (not (list? a))))
@@ -10,6 +9,7 @@
 (define l '(a b c))
 
 
+; insert new to the right of old in lat
 (define insertR
   (lambda (new old lat)
     (cond
@@ -22,6 +22,7 @@
                            (insertR new old
                                     (cdr lat)))))))))
 
+; insert new to the left of old in lat
 (define insertL
   (lambda (new old lat)
     (cond
@@ -31,4 +32,31 @@
                (cons new lat))
               (else (cons (car lat)
                           (insertL new old (cdr lat)))))))))
-                    
+
+
+; substitute old in lat with new
+(define subst
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote()))
+      ((eq? (car lat) old)
+       (cons new (cdr lat)))
+      (else (cons (car lat)
+                  (subst new old
+                         (cdr lat)))))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
